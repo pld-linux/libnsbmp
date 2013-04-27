@@ -12,7 +12,6 @@ Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-sr
 # Source0-md5:	5b33ff44dfb48e628bcadbe7e51edf90
 URL:		http://www.netsurf-browser.org/projects/libnsbmp/
 BuildRequires:	netsurf-buildsystem
-BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,28 +49,26 @@ Statyczna biblioteka libnsbmp.
 %setup -q
 
 %build
-%{__make} PREFIX=%{_prefix} COMPONENT_TYPE=lib-shared Q='' \
-	CFLAGS="%{rpmcflags}" LDFLAGS="%{rpmldflags}"
+CFLAGS="%{rpmcflags}" LDFLAGS="%{rpmldflags}" \
+%{__make} PREFIX=%{_prefix} COMPONENT_TYPE=lib-shared Q=''
+
 %if %{with static_libs}
-%{__make} PREFIX=%{_prefix} COMPONENT_TYPE=lib-static Q='' \
-	CFLAGS="%{rpmcflags}" LDFLAGS="%{rpmldflags}"
+CFLAGS="%{rpmcflags}" LDFLAGS="%{rpmldflags}" \
+%{__make} PREFIX=%{_prefix} COMPONENT_TYPE=lib-static Q=''
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	PREFIX=%{_prefix} \
+%{__make} install Q='' \
 	COMPONENT_TYPE=lib-shared \
-	Q=''
+	PREFIX=%{_prefix} \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{with static_libs}
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	PREFIX=%{_prefix} \
+%{__make} install Q='' \
 	COMPONENT_TYPE=lib-static \
-	Q=''
+	PREFIX=%{_prefix} \
+	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
 %clean

@@ -10,6 +10,7 @@ License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
 # Source0-md5:	5b33ff44dfb48e628bcadbe7e51edf90
+Patch0:		lib.patch
 URL:		http://www.netsurf-browser.org/projects/libnsbmp/
 BuildRequires:	netsurf-buildsystem
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -47,6 +48,7 @@ Statyczna biblioteka libnsbmp.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 CFLAGS="%{rpmcflags}" LDFLAGS="%{rpmldflags}" \
@@ -60,14 +62,16 @@ CFLAGS="%{rpmcflags}" LDFLAGS="%{rpmldflags}" \
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install Q='' \
-	COMPONENT_TYPE=lib-shared \
+	lib=%{_lib} \
 	PREFIX=%{_prefix} \
+	COMPONENT_TYPE=lib-shared \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{with static_libs}
 %{__make} install Q='' \
-	COMPONENT_TYPE=lib-static \
+	lib=%{_lib} \
 	PREFIX=%{_prefix} \
+	COMPONENT_TYPE=lib-static \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 

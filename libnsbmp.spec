@@ -10,7 +10,6 @@ License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
 # Source0-md5:	f9552402c748f976e68bb40a14bb82c7
-#Patch0:		lib.patch
 URL:		http://www.netsurf-browser.org/projects/libnsbmp/
 BuildRequires:	netsurf-buildsystem >= 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -48,7 +47,6 @@ Statyczna biblioteka libnsbmp.
 
 %prep
 %setup -q
-#%%patch0 -p1
 
 %build
 export CC="%{__cc}"

@@ -3,6 +3,7 @@
 %bcond_without	static_libs	# don't build static library
 
 Summary:	Decoding library for BMP and ICO file formats
+Summary(pl.UTF-8):	Biblioteka dekodująca pliki w formatach BMP oraz ICO
 Name:		libnsbmp
 Version:	0.1.1
 Release:	1
@@ -19,6 +20,11 @@ Libnsbmp is a decoding library for BMP and ICO image file formats,
 written in C. It was developed as part of the NetSurf project and is
 available for use by other software under the MIT licence.
 
+%description -l pl.UTF-8
+Libnsbmp to napisana w C biblioteka dekodująca pliki obrazów w
+formatach BMP oraz ICO. Powstała jako część projektu NetSurf i jest
+dostępna do wykorzystania przez inne programy na licencji MIT.
+
 %package devel
 Summary:	libnsbmp library headers
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libnsbmp
@@ -34,13 +40,13 @@ Pliki nagłówkowe pozwalające na używanie biblioteki libnsbmp w swoich
 programach.
 
 %package static
-Summary:	libnsbmp static libraries
-Summary(pl.UTF-8):	Statyczne biblioteki libnsbmp
+Summary:	libnsbmp static library
+Summary(pl.UTF-8):	Statyczna biblioteka libnsbmp
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
-This is package with static libnsbmp libraries.
+This is package with static libnsbmp library.
 
 %description static -l pl.UTF-8
 Statyczna biblioteka libnsbmp.
@@ -53,28 +59,34 @@ export CC="%{__cc}"
 export CFLAGS="%{rpmcflags}"
 export LDFLAGS="%{rpmldflags}"
 
-%{__make} Q= \
+%{__make} \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-shared
 
 %if %{with static_libs}
-%{__make} Q= \
+%{__make} \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-static
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install Q= \
-	lib=%{_lib} \
+%{__make} install \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-shared \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{with static_libs}
-%{__make} install Q= \
-	lib=%{_lib} \
+%{__make} install \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-static \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
@@ -88,11 +100,11 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnsbmp.so.*.*.*
-%ghost %{_libdir}/libnsbmp.so.0
+%attr(755,root,root) %ghost %{_libdir}/libnsbmp.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/libnsbmp.so
+%attr(755,root,root) %{_libdir}/libnsbmp.so
 %{_includedir}/libnsbmp.h
 %{_pkgconfigdir}/libnsbmp.pc
 

@@ -32,8 +32,8 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-This is the libraries, include files and other resources you can use
-to incorporate libnsbmp into applications.
+This package contains the include files and other resources you can
+use to incorporate libnsbmp into applications.
 
 %description devel -l pl.UTF-8
 Pliki nagłówkowe pozwalające na używanie biblioteki libnsbmp w swoich
@@ -99,6 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc COPYING
 %attr(755,root,root) %{_libdir}/libnsbmp.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libnsbmp.so.0
 

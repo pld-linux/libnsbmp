@@ -5,15 +5,15 @@
 Summary:	Decoding library for BMP and ICO file formats
 Summary(pl.UTF-8):	Biblioteka dekodująca pliki w formatach BMP oraz ICO
 Name:		libnsbmp
-Version:	0.1.2
+Version:	0.1.3
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
-# Source0-md5:	fb945a2ee71c2d360368055616d7e191
+# Source0-md5:	b4f2f0b13218f05bec980373ebf67065
 Patch0:		no-Werror.patch
 URL:		http://www.netsurf-browser.org/projects/libnsbmp/
-BuildRequires:	netsurf-buildsystem >= 1.3
+BuildRequires:	netsurf-buildsystem >= 1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -54,9 +54,9 @@ Statyczna biblioteka libnsbmp.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
+export AR="%{__ar}"
 export CC="%{__cc}"
 export CFLAGS="%{rpmcflags}"
 export LDFLAGS="%{rpmldflags}"
@@ -76,6 +76,11 @@ export LDFLAGS="%{rpmldflags}"
 %endif
 
 %install
+export AR="%{__ar}"
+export CC="%{__cc}"
+export CFLAGS="%{rpmcflags}"
+export LDFLAGS="%{rpmldflags}"
+
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	Q= \

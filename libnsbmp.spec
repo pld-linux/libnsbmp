@@ -11,7 +11,6 @@ License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
 # Source0-md5:	b4f2f0b13218f05bec980373ebf67065
-Patch0:		no-Werror.patch
 URL:		http://www.netsurf-browser.org/projects/libnsbmp/
 BuildRequires:	netsurf-buildsystem >= 1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -76,12 +75,13 @@ export LDFLAGS="%{rpmldflags}"
 %endif
 
 %install
+rm -rf $RPM_BUILD_ROOT
+
 export AR="%{__ar}"
 export CC="%{__cc}"
 export CFLAGS="%{rpmcflags}"
 export LDFLAGS="%{rpmldflags}"
 
-rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	Q= \
 	PREFIX=%{_prefix} \

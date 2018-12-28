@@ -5,14 +5,14 @@
 Summary:	Decoding library for BMP and ICO file formats
 Summary(pl.UTF-8):	Biblioteka dekodująca pliki w formatach BMP oraz ICO
 Name:		libnsbmp
-Version:	0.1.4
+Version:	0.1.5
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
-# Source0-md5:	91c63d7921fb68d31bccebfdcd18b455
+# Source0-md5:	4a6f89a85a4cecfdfedd9c1ddd05c2db
 URL:		http://www.netsurf-browser.org/projects/libnsbmp/
-BuildRequires:	netsurf-buildsystem >= 1.5
+BuildRequires:	netsurf-buildsystem >= 1.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
